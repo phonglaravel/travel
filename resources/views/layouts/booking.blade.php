@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-primary btn-block" type="submit" style="height: 47px; margin-top: -2px;">Submit</button>
+                    <button class="btn btn-primary btn-block" type="submit" style="height: 47px; margin-top: -2px;">Tìm</button>
                 </div>
                 
             </div>
@@ -57,5 +57,5 @@
                         <div class="container alert alert-success" role="alert">
                             {{ session('error') }}
                         </div>
-    @endif
+@endif
 <!-- Booking End -->
