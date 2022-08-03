@@ -40,7 +40,8 @@ class IndexController extends Controller
         $tour_in = Tour::orderBy('id','DESC')->where('hot',1)->whereIn('country_id',$aa)->take(6)->get();
         $banner = Tour::orderBy('id','DESC')->where('hot',1)->whereIn('country_id',$aa)->take(2)->get();
         $tour_out = Tour::orderBy('id','DESC')->where('hot',1)->whereIn('country_id',$bb)->take(6)->get();
-        return view('index',compact('all_country','cities','trongnuoc6','nuocngoai6','countries','tour_in','tour_out','banner'));
+        $blogs = Blog::orderBy('id','ASC')->take(3)->get();
+        return view('index',compact('blogs','all_country','cities','trongnuoc6','nuocngoai6','countries','tour_in','tour_out','banner'));
     }
     public function country($slug_category, $slug_country)
     {

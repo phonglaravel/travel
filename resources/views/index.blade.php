@@ -323,29 +323,28 @@
     <div class="container-fluid py-5">
         <div class="container pt-5 pb-3">
             <div class="text-center mb-3 pb-3">
-                <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Our Blog</h6>
-                <h1>Latest From Our Blog</h1>
+                <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Du Lịch</h6>
+                <a style="text-decoration: none" href="{{route('blogs')}}"><h1>Cẩm nang du lịch</h1></a>
             </div>
             <div class="row pb-3">
+                @foreach ($blogs as $item)
                 <div class="col-lg-4 col-md-6 mb-4 pb-2">
                     <div class="blog-item">
                         <div class="position-relative">
-                            <img class="img-fluid w-100" src="/page/img/blog-1.jpg" alt="">
+                            <img style="height: 200px" class="img-fluid w-100" src="{{asset('storage/'.$item->image)}}" alt="">
                             <div class="blog-date">
-                                <h6 class="font-weight-bold mb-n1">01</h6>
-                                <small class="text-white text-uppercase">Jan</small>
+                                <h6 class="font-weight-bold mb-n1">{{substr($item->ngaytao,0,5)}}</h6>
+                                <small class="text-white text-uppercase">{{substr($item->ngaytao,6,4)}}</small>
                             </div>
                         </div>
-                        <div class="bg-white p-4">
-                            <div class="d-flex mb-2">
-                                <a class="text-primary text-uppercase text-decoration-none" href="">Admin</a>
-                                <span class="text-primary px-2">|</span>
-                                <a class="text-primary text-uppercase text-decoration-none" href="">Tours & Travel</a>
-                            </div>
-                            <a class="h5 m-0 text-decoration-none" href="">Dolor justo sea kasd lorem clita justo diam amet</a>
+                        <div class="bg-white p-4" style="height: 120px">
+                            
+                            <a class="h5 m-0 text-decoration-none" href="{{route('blog',$item->slug_blog)}}">{{$item->title}}</a>
                         </div>
                     </div>
                 </div>
+                @endforeach
+                
                 
             </div>
         </div>
