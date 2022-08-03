@@ -6,12 +6,15 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\HoneyMoon;
 use App\Models\Older;
 use App\Models\Support;
 use App\Models\Tour;
 use App\Models\TourNuocNgoai;
 use App\Models\TourTrongNuoc;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 
 class IndexController extends Controller
@@ -61,8 +64,9 @@ class IndexController extends Controller
         $tour->count = $tour->count + 1;
         $tour->save();
         $sp = Support::all();
+        $blogs = Blog::orderBy('id','ASC')->take(5)->get();
         $lienquan = Tour::orderBy('id','DESC')->where('country_id',$tour->country_id)->whereNotIn('id',[$tour->id])->take(5)->get();
-        return view('tour',compact('cities','countries','country','tour','sp','lienquan','all_country'));
+        return view('tour',compact('cities','countries','country','tour','sp','lienquan','all_country','blogs'));
 
     }
    public function older(Request $request)
@@ -80,6 +84,7 @@ class IndexController extends Controller
     ]);
     $older = new Older();
     $older->name = $request->name;
+    $older->price = $request->price;
     $older->tour_id = $request->tour_id;
     $older->phone = $request->phone;
     $older->email = $request->email;
@@ -153,6 +158,36 @@ class IndexController extends Controller
         $countries = Country::where('category_id', 2)->get();
         $all_country = Country::orderBy('id','DESC')->get();
         $blogs = Blog::orderBy('id','ASC')->get();
-        return view('blogs', compact('cities','countries','all_country','blogs'));
+        $lienquan = Tour::where('hot',1)->take(5)->get();
+        return view('blogs', compact('cities','countries','all_country','blogs','lienquan'));
+   }
+   public function blog($slug_blog)
+   {
+        $cities = Country::where('category_id', 1)->get();
+        $countries = Country::where('category_id', 2)->get();
+        $all_country = Country::orderBy('id','DESC')->get();
+        $blog = Blog::where('slug_blog',$slug_blog)->first();
+        $lienquan = Tour::where('hot',1)->take(5)->get();
+        return view('blog', compact('cities','countries','all_country','blog','lienquan'));
+   }
+   public function honeymoon(Request $request)
+   {
+    $valid = Validator::make($request->all(),[
+        'name'=>'required',
+        'email'=>'required',
+        'country_id'=>'required',
+    ]);
+    if($valid->fails()){
+        return 'Bạn chưa nhập đủ thông tin';
+    }else{
+        $honey = new HoneyMoon();
+        $honey->name = $request->name;
+        $honey->email = $request->email;
+        $honey->country_id = $request->country_id;
+        $honey->ngaytao = Carbon::now('Asia/Ho_Chi_Minh')->format('d/m/Y');
+        $honey->tinhtrang = 'Chưa xử lý';
+        $honey->save();
+        return 'Đăng kí thành công chúng tôi sẽ trả lời sớm nhất có thể!';
+    }
    }
 }

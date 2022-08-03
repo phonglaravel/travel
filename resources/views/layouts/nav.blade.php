@@ -51,7 +51,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">TRONG NƯỚC</a>
                         <div class="dropdown-menu border-0 rounded-0 m-0">
                             @foreach ($cities as $item)
-                            <a href="blog.html" class="dropdown-item">{{$item->title}}</a>
+                            <a href="{{url('tour/trong-nuoc/'.$item->slug_country)}}" class="dropdown-item">{{$item->title}}</a>
                             @endforeach   
                         </div>
                     </div>
@@ -59,11 +59,11 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">NƯỚC NGOÀI</a>
                         <div class="dropdown-menu border-0 rounded-0 m-0">
                             @foreach ($countries as $item)
-                            <a href="blog.html" class="dropdown-item">{{$item->title}}</a>
+                            <a href="{{url('tour/nuoc-ngoai/'.$item->slug_country)}}" class="dropdown-item">{{$item->title}}</a>
                             @endforeach   
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">CẨM NANG DU LỊCH</a>
+                    <a href="{{route('blogs')}}" class="nav-item nav-link">CẨM NANG DU LỊCH</a>
                     <a href="contact.html" class="nav-item nav-link">LIÊN HỆ</a>
                 </div>
             </div>

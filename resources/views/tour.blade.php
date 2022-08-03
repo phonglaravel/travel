@@ -67,7 +67,12 @@
                                     <th>{{$tour->title}}</th>
                                     <th>{{$tour->time}}</th>
                                     <th>{{$tour->date_start}}</th>
+                                    @if ($tour->giamgia<=0 ||$tour->giamgia==null )
                                     <th>{{number_format($tour->price,0,',','.')}}</th>
+                                    @else
+                                    <th>{{number_format($tour->price*(100-$tour->giamgia)/100,0,',','.')}}</th>
+                                    @endif
+                                    
                                     <th><button id="dattour" class="btn btn-success">Đặt tour</button></th>
                                   </tr>
                                   
@@ -119,6 +124,11 @@
                                     <textarea name="message" type="text" class="form-control"></textarea>
                                   </div>
                                   <input name="tour_id" type="hidden" value="{{$tour->id}}">
+                                  @if ($tour->giamgia<=0 || $tour->giamgia==null)
+                                  <input name="price" type="hidden" value="{{$tour->price}}">
+                                  @else
+                                  <input name="price" type="hidden" value="{{$tour->price*(100-$tour->giamgia)/100}}">
+                                  @endif
                                 <button type="submit" class="btn btn-primary">Đặt tour</button>
                               </form>
                         </div>
@@ -140,27 +150,16 @@
                     <!-- Recent Post -->
                     <div class="mb-5">
                         <h4 class="text-uppercase mb-4" style="letter-spacing: 5px;">Cẩm nang du lịch</h4>
-                        <a class="d-flex align-items-center text-decoration-none bg-white mb-3" href="">
+                        @foreach ($blogs as $item)
+                        <a class="d-flex align-items-center text-decoration-none bg-white mb-3" href="{{route('blog',$item->slug_blog)}}">
                             <img class="img-fluid" src="img/blog-100x100.jpg" alt="">
                             <div class="pl-3">
-                                <h6 class="m-1">Diam lorem dolore justo eirmod lorem dolore</h6>
-                                <small>Jan 01, 2050</small>
+                                <span><i class="fas fa-angle-double-right"></i></span>
+                                <span><h6 class="m-1">{{$item->title}}</h6></span>
+                                <small>{{$item->ngaytao}}</small>
                             </div>
                         </a>
-                        <a class="d-flex align-items-center text-decoration-none bg-white mb-3" href="">
-                            <img class="img-fluid" src="img/blog-100x100.jpg" alt="">
-                            <div class="pl-3">
-                                <h6 class="m-1">Diam lorem dolore justo eirmod lorem dolore</h6>
-                                <small>Jan 01, 2050</small>
-                            </div>
-                        </a>
-                        <a class="d-flex align-items-center text-decoration-none bg-white mb-3" href="">
-                            <img class="img-fluid" src="img/blog-100x100.jpg" alt="">
-                            <div class="pl-3">
-                                <h6 class="m-1">Diam lorem dolore justo eirmod lorem dolore</h6>
-                                <small>Jan 01, 2050</small>
-                            </div>
-                        </a>
+                        @endforeach                    
                     </div>
     
                     <!-- Tag Cloud -->

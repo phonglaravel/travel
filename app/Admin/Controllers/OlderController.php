@@ -28,6 +28,7 @@ class OlderController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('tour_id', __('Tour id'));
+        $grid->column('price', __('Giá'));
         $grid->column('tinhtrang', __('Tình trạng'));
         $grid->column('name', __('Name'));
         $grid->column('phone', __('Phone'));
@@ -80,6 +81,7 @@ class OlderController extends AdminController
         
         $form->text('name', __('Name'));
         $form->mobile('phone', __('Phone'));
+        $form->number('price', __('Giá'));
         $form->email('email', __('Email'));
         $form->number('nguoilon', __('Nguoilon'));
         $form->number('treem', __('Treem'));

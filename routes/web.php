@@ -20,3 +20,5 @@ Route::get('du-lich/{slug_country}/{slug_tour}', [IndexController::class,'tour']
 Route::post('older',[IndexController::class,'older'])->name('older');
 Route::get('loc-tour', [IndexController::class,'loc'])->name('loc');
 Route::get('cam-nang-du-lich',[IndexController::class,'blogs'])->name('blogs');
+Route::get('cam-nang-du-lich/{slug_blog}',[IndexController::class,'blog'])->name('blog');
+Route::post('honeymoon',[IndexController::class,'honeymoon'])->name('honeymoon');

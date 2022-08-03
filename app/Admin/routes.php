@@ -23,5 +23,7 @@ Route::group([
     $router->resource('olders', OlderController::class);
     $router->resource('supports', SupportController::class);
     $router->resource('blogs', BlogController::class);
+    $router->resource('honey-moons', HoneyMoonController::class);
+
 });
 
