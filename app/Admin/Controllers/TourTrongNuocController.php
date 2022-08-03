@@ -32,6 +32,7 @@ class TourTrongNuocController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('code', __('Code'));
         $grid->column('title', __('Tên'));
+        $grid->column('count', __('Lượt xem'));
         $grid->column('amount', __('Số người'));
         $grid->column('date_start', __('Ngày bắt đầu'));
         $grid->hot()->display(function($hot){
@@ -102,6 +103,7 @@ class TourTrongNuocController extends AdminController
         ->creationRules(['required', "unique:tour_trongnuoc"],['required'=>'không được để trống'])
         ->updateRules(['required', "unique:tour_trongnuoc,code,{{id}}"]);;
         $form->text('title', __('Title'))->rules('required',['required'=>'không được để trống']);
+        $form->number('count', __('Lượt xem'))->value(0)->rules('required',['required'=>'không được để trống']);
         $form->hidden('slug_tour', __('Slug tour'));
         $form->saving(function (Form $form) {
 

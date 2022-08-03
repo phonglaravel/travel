@@ -19,3 +19,4 @@ Route::get('tour/{slug_category}/{slug_country}', [IndexController::class,'count
 Route::get('du-lich/{slug_country}/{slug_tour}', [IndexController::class,'tour'])->name('tour');
 Route::post('older',[IndexController::class,'older'])->name('older');
 Route::get('loc-tour', [IndexController::class,'loc'])->name('loc');
+Route::get('cam-nang-du-lich',[IndexController::class,'blogs'])->name('blogs');

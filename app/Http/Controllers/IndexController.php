@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
@@ -57,6 +58,8 @@ class IndexController extends Controller
         $all_country = Country::orderBy('id','DESC')->get();
         $country = Country::where('slug_country',$slug_country)->first();
         $tour = Tour::where('slug_tour',$slug_tour)->first();
+        $tour->count = $tour->count + 1;
+        $tour->save();
         $sp = Support::all();
         $lienquan = Tour::orderBy('id','DESC')->where('country_id',$tour->country_id)->whereNotIn('id',[$tour->id])->take(5)->get();
         return view('tour',compact('cities','countries','country','tour','sp','lienquan','all_country'));
@@ -102,7 +105,7 @@ class IndexController extends Controller
         if($request->day=='Monday'){
             $tours = Tour::orderBy('id','DESC')->where('country_id',$request->country_id)
             ->where('date_start','Hàng ngày')
-            ->where('date_start','LIKE','%'.'Thứ 2'.'%')->get();
+            ->orWhere('date_start','LIKE','%'.'Thứ 2'.'%')->get();
         }elseif($request->day=='Tuesday'){
             $tours = Tour::orderBy('id','DESC')->where('country_id',$request->country_id)
             ->where('date_start','Hàng ngày')
@@ -143,5 +146,13 @@ class IndexController extends Controller
         $all_country = Country::orderBy('id','DESC')->get();
         return view('loc',compact('tours','cities','countries','all_country'));
     }
+   }
+   public function blogs()
+   {
+        $cities = Country::where('category_id', 1)->get();
+        $countries = Country::where('category_id', 2)->get();
+        $all_country = Country::orderBy('id','DESC')->get();
+        $blogs = Blog::orderBy('id','ASC')->get();
+        return view('blogs', compact('cities','countries','all_country','blogs'));
    }
 }

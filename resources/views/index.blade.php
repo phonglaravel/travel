@@ -16,7 +16,7 @@
                         <div class="p-3" style="max-width: 900px;">
                             <h4 class="text-white text-uppercase mb-md-3">Tours & Travel</h4>
                             <h1 class="display-3 text-white mb-md-4">{{$item->title}}</h1>
-                            <a href="{{url('du-lich/'.$item->country->slug_country.'/'.$item->slug_tour)}}" class="btn btn-primary py-md-3 px-md-5 mt-2">Book Now</a>
+                            <a href="{{url('du-lich/'.$item->country->slug_country.'/'.$item->slug_tour)}}" class="btn btn-primary py-md-3 px-md-5 mt-2">Xem Ngay</a>
                         </div>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
                             <a class="h5 text-decoration-none" href="{{url('du-lich/'.$item->country->slug_country.'/'.$item->slug_tour)}}">{{$item->title}}</a>
                             <div class="border-top mt-4 pt-4">
                                 <div class="d-flex justify-content-between">
-                                    <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small></h6>
+                                    <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>({{$item->count}})</small></h6>
                                     @if ($item->giamgia==null || $item->giamgia<=0)
                                         <h5 class="m-0">{{number_format($item->price,0,',','.')}} đ</h5>
                                     @else

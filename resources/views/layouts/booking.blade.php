@@ -10,7 +10,7 @@
                         <div class="col-md-3">
                             <div class="mb-3 mb-md-0">
                                 <select name="country_id" class="custom-select px-4" style="height: 47px;">
-                                    <option selected>Chọn địa điểm</option>
+                                    <option value="" selected>Chọn địa điểm</option>
                                     @foreach ($all_country as $item)
                                     <option value="{{$item->id}}">{{$item->title}}</option>
                                     @endforeach
@@ -36,7 +36,7 @@
                         <div class="col-md-3">
                             <div class="mb-3 mb-md-0">
                                 <select name="khuyenmai" class="custom-select px-4" style="height: 47px;">
-                                    <option selected>Khuyến Mãi</option>
+                                    <option value="" selected>Khuyến Mãi</option>
                                     <option value="1">Có</option>
                                     <option value="2">Không</option>
                                 </select>

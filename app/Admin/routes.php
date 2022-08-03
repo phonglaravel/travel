@@ -22,6 +22,6 @@ Route::group([
     $router->resource('tour-trong-nuoc', TourTrongNuocController::class);
     $router->resource('olders', OlderController::class);
     $router->resource('supports', SupportController::class);
-    
+    $router->resource('blogs', BlogController::class);
 });
 
