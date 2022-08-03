@@ -42,7 +42,12 @@
                             <div class="border-top mt-4 pt-4">
                                 <div class="d-flex justify-content-between">
                                     <h6 class="m-0"><i class="fa fa-star text-primary mr-2"></i>4.5 <small>(250)</small></h6>
-                                    <h5 class="m-0">{{number_format($item->price,0,',','.')}} đ</h5>
+                                    @if ($item->giamgia==null || $item->giamgia<=0)
+                                        <h5 class="m-0">{{number_format($item->price,0,',','.')}} đ</h5>
+                                    @else
+                                        <h5 style="text-decoration-line: line-through" class="m-0">{{number_format($item->price,0,',','.')}} đ</h5>
+                                        <h5 class="m-0">{{number_format($item->price*(100-$item->giamgia)/100,0,',','.')}} đ</h5>
+                                    @endif
                                 </div>
                             </div>
                         </div>
