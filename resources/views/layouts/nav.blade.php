@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
                 <div class="d-inline-flex align-items-center">
-                    <p><i class="fa fa-envelope mr-2"></i>nguyenduyphongqb@gmail.com</p>
+                    <p><i class="fa fa-envelope mr-2"></i><a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJvnJRzQvHgqShfltWjTgFjTwNPXFsLNFTMXsdhFQbPKhPrDrFdfrWGMQhKqNsDnzSMwnvq" target="_blank">nguyenduyphongqb@gmail.com</a></p>
                     <p class="text-body px-3">|</p>
                     <p><i class="fa fa-phone-alt mr-2"></i>0977 350 884</p>
                 </div>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <a href="{{route('blogs')}}" class="nav-item nav-link">CẨM NANG DU LỊCH</a>
-                    <a href="contact.html" class="nav-item nav-link">LIÊN HỆ</a>
+                    <a href="{{route('contact')}}" class="nav-item nav-link">LIÊN HỆ</a>
                 </div>
             </div>
         </nav>

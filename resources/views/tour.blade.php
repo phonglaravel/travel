@@ -132,7 +132,14 @@
                                 <button type="submit" class="btn btn-primary">Đặt tour</button>
                               </form>
                         </div>
+                        
                     </div>
+                    <div class="col-lg-12" style="overflow: hidden">
+                      <div id="fb-root"></div>
+                      <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0" nonce="yN0VmP2H"></script>
+                        <div class="fb-comments" data-href="{{$url}}" data-width="" data-numposts="10"></div>
+                    </div>
+                    
                 </div>
     
                 <div class="col-lg-4 mt-5 mt-lg-0">

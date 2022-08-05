@@ -22,3 +22,7 @@ Route::get('loc-tour', [IndexController::class,'loc'])->name('loc');
 Route::get('cam-nang-du-lich',[IndexController::class,'blogs'])->name('blogs');
 Route::get('cam-nang-du-lich/{slug_blog}',[IndexController::class,'blog'])->name('blog');
 Route::post('honeymoon',[IndexController::class,'honeymoon'])->name('honeymoon');
+Route::get('lien-he',[IndexController::class,'contact'])->name('contact');
+Route::post('postcontact',[IndexController::class,'postcontact'])->name('postcontact');
+Route::post('comment-blog',[IndexController::class,'comment_blog'])->name('comment_blog');
+Route::post('comment-comment',[IndexController::class,'comment_comment'])->name('comment_comment');

@@ -24,6 +24,7 @@ Route::group([
     $router->resource('supports', SupportController::class);
     $router->resource('blogs', BlogController::class);
     $router->resource('honey-moons', HoneyMoonController::class);
-
+    $router->resource('contacts', ContactController::class);
+    $router->resource('comment-blogs', CommentBlogController::class);
 });
 

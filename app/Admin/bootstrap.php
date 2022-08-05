@@ -23,3 +23,7 @@ use Encore\Admin\Form;
 use App\Admin\Extensions\Form\CKEditor;
 
 Form::extend('ckeditor', CKEditor::class);
+Use Encore\Admin\Admin;
+
+Admin::style('body {font-family: Roboto;background: white;}');
+

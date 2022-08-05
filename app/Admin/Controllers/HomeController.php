@@ -12,6 +12,12 @@ class HomeController extends Controller
 {
     public function index(Content $content)
     {
+        $content->header('Admin');
+        $content->description('Quản lý travel');
+        // $content->row(function(Row $row) {
+        //     $row->column(6, '');
+        //     $row->column(6, '   ');
+        // });
         return $content;
     }
 }

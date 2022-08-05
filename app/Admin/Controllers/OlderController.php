@@ -28,7 +28,9 @@ class OlderController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('tour_id', __('Tour id'));
-        $grid->column('price', __('Giá'));
+        $grid->column('price', __('Giá'))->display(function($price){
+            return number_format($price,0,',','.');
+        });
         $grid->column('tinhtrang', __('Tình trạng'));
         $grid->column('name', __('Name'));
         $grid->column('phone', __('Phone'));

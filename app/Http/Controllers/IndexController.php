@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\CommentBlog;
+use App\Models\CommentComment;
+use App\Models\Contact;
 use App\Models\Country;
 use App\Models\HoneyMoon;
 use App\Models\Older;
@@ -16,12 +19,13 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\URL;
 
 class IndexController extends Controller
 {   
     public function index()
     {
-
+        $title = 'Trang chủ';
         $cities = Country::where('category_id', 1)->get();
         $countries = Country::where('category_id', 2)->get();
         $all_country = Country::orderBy('id','DESC')->get();
@@ -41,7 +45,7 @@ class IndexController extends Controller
         $banner = Tour::orderBy('id','DESC')->where('hot',1)->whereIn('country_id',$aa)->take(2)->get();
         $tour_out = Tour::orderBy('id','DESC')->where('hot',1)->whereIn('country_id',$bb)->take(6)->get();
         $blogs = Blog::orderBy('id','ASC')->take(3)->get();
-        return view('index',compact('blogs','all_country','cities','trongnuoc6','nuocngoai6','countries','tour_in','tour_out','banner'));
+        return view('index',compact('title','blogs','all_country','cities','trongnuoc6','nuocngoai6','countries','tour_in','tour_out','banner'));
     }
     public function country($slug_category, $slug_country)
     {
@@ -52,8 +56,9 @@ class IndexController extends Controller
         $nuocngoai6 = Country::where('status', 1)->where('category_id', 2)->take(6)->get();
         $category = Category::where('slug_category',$slug_category)->first();
         $country = Country::where('slug_country',$slug_country)->first();
+        $title = 'Du lịch '.$country->title;
         $tours = Tour::orderBy('id','DESC')->where('country_id',$country->id)->get();
-        return view('country',compact('all_country','cities','trongnuoc6','nuocngoai6','countries','category','country','tours'));
+        return view('country',compact('title','all_country','cities','trongnuoc6','nuocngoai6','countries','category','country','tours'));
     }
     public function tour($slug_country, $slug_tour)
     {
@@ -61,13 +66,15 @@ class IndexController extends Controller
         $countries = Country::where('category_id', 2)->get();
         $all_country = Country::orderBy('id','DESC')->get();
         $country = Country::where('slug_country',$slug_country)->first();
+        $title = 'Du lịch '.$country->title;
         $tour = Tour::where('slug_tour',$slug_tour)->first();
         $tour->count = $tour->count + 1;
         $tour->save();
         $sp = Support::all();
         $blogs = Blog::orderBy('id','ASC')->take(5)->get();
         $lienquan = Tour::orderBy('id','DESC')->where('country_id',$tour->country_id)->whereNotIn('id',[$tour->id])->take(5)->get();
-        return view('tour',compact('cities','countries','country','tour','sp','lienquan','all_country','blogs'));
+        $url = URL::current();   
+        return view('tour',compact('title','url','cities','countries','country','tour','sp','lienquan','all_country','blogs'));
 
     }
    public function older(Request $request)
@@ -150,26 +157,30 @@ class IndexController extends Controller
         $cities = Country::where('category_id', 1)->get();
         $countries = Country::where('category_id', 2)->get();
         $all_country = Country::orderBy('id','DESC')->get();
-        return view('loc',compact('tours','cities','countries','all_country'));
+        $title = 'Vitravel - Lọc';
+        return view('loc',compact('title','tours','cities','countries','all_country'));
     }
    }
    public function blogs()
    {
+        $title = 'Cẩm nang du lịch';
         $cities = Country::where('category_id', 1)->get();
         $countries = Country::where('category_id', 2)->get();
         $all_country = Country::orderBy('id','DESC')->get();
         $blogs = Blog::orderBy('id','ASC')->get();
         $lienquan = Tour::where('hot',1)->take(5)->get();
-        return view('blogs', compact('cities','countries','all_country','blogs','lienquan'));
+        return view('blogs', compact('title','cities','countries','all_country','blogs','lienquan'));
    }
    public function blog($slug_blog)
    {
+        $title = 'Cẩm nang du lịch';
         $cities = Country::where('category_id', 1)->get();
         $countries = Country::where('category_id', 2)->get();
         $all_country = Country::orderBy('id','DESC')->get();
         $blog = Blog::where('slug_blog',$slug_blog)->first();
         $lienquan = Tour::where('hot',1)->take(5)->get();
-        return view('blog', compact('cities','countries','all_country','blog','lienquan'));
+        $comment_blog = CommentBlog::orderBy('id','DESC')->where('blog_id',$blog->id)->get();
+        return view('blog', compact('title','cities','countries','all_country','blog','lienquan','comment_blog'));
    }
    public function honeymoon(Request $request)
    {
@@ -190,5 +201,42 @@ class IndexController extends Controller
         $honey->save();
         return 'Đăng kí thành công chúng tôi sẽ trả lời sớm nhất có thể!';
     }
+   }
+   public function contact()
+   {
+        $title = 'Liên hệ';
+        $cities = Country::where('category_id', 1)->get();
+        $countries = Country::where('category_id', 2)->get();
+        $all_country = Country::orderBy('id','DESC')->get();
+    return view('contact',compact('title','cities','countries','all_country'));
+   }
+   public function postcontact(Request $request)
+   {
+        $contact = new Contact();
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->message = $request->message;
+        $contact->save();
+        return back()->with('success','Gửi liên hệ thành công chúng tôi sẽ liên hệ sớm nhất');
+   }
+   public function comment_blog(Request $request)
+   {
+        $cmt = new CommentBlog();
+        $cmt->name = $request->name;
+        $cmt->message = $request->message;
+        $cmt->blog_id = $request->blog_id;
+        $cmt->ngaytao = Carbon::now('Asia/Ho_Chi_Minh')->format('d/m/y');
+        $cmt->save();
+        return back();
+   }
+   public function comment_comment(Request $request)
+   {
+        $cmt = new CommentComment();
+        $cmt->name = $request->name;
+        $cmt->message = $request->message;
+        $cmt->commentblog_id = $request->commentblog_id;
+        $cmt->ngaytao = Carbon::now('Asia/Ho_Chi_Minh')->format('d/m/y');
+        $cmt->save();
+        return back();
    }
 }
