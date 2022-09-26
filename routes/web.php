@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [IndexController::class,'index']);
+Route::get('/czczczxc', [IndexController::class,'index']);
 Route::get('tour/{slug_category}/{slug_country}', [IndexController::class,'country'])->name('country');
 Route::get('du-lich/{slug_country}/{slug_tour}', [IndexController::class,'tour'])->name('tour');
 Route::post('older',[IndexController::class,'older'])->name('older');
